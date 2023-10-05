@@ -1,22 +1,32 @@
-from selenium import webdriver
+import requests
+import json
 
-# Spécifiez le chemin vers le pilote de navigateur (par exemple, ChromeDriver)
-driver_path = 'chemin_vers_chromedriver.exe'  # Remplacez par le chemin de votre pilote ChromeDriver
-# Initialisez le navigateur Chrome
-driver = webdriver.Chrome(executable_path=driver_path)
+# Faites une requête GET vers l'API
+url = "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/dechets-menagers-points-dapport-volontaire-stations-trilib/records?limit=100"
+response = requests.get(url)
 
-# L'URL de la page que vous souhaitez scraper
-url = "https://www.paris.fr/recherche/lieux?page=3&types=trilib"
+# Vérifiez si la requête a réussi
+if response.status_code == 200:
+    data = response.json()
 
-# Chargez la page dans le navigateur
-driver.get(url)
+    # Initialisez une liste pour stocker les coordonnées
+    coordinates = []
 
-# Trouvez tous les divs avec la classe "paris-search-hits-item-title"
-title_divs = driver.find_elements_by_css_selector('.paris-search-hits-item-title')
+    # Parcourez les enregistrements pour extraire les coordonnées
+    for record in data.get("results", []):
+        lon = record["longitude"]
+        lat = record["latitude"]
+        adresse = record["adresse"]
+        code_postal = record["code_postal"]
+        coordinates.append({
+            "lon": lon,
+            "lat": lat,
+            "adresse" : adresse + " " + code_postal
+        })
 
-# Parcourez les divs et imprimez leur contenu
-for title_div in title_divs:
-    print(title_div.text)
+    # Écrivez les coordonnées dans un fichier JSON
+    with open("coordinates.json", "w") as json_file:
+        json.dump(coordinates, json_file)
 
-# Fermez le navigateur
-driver.quit()
+else:
+    print("La requête a échoué avec le code d'état :", response.status_code)

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'Accueil</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        
+        <div class="top-bar">
+            <img src="paris.png" alt="Paris">
+            <button class="btn-event">Événements</button>
+            <button class="btn-filter">Filtre</button>
+            <input type="text" class="search-bar" placeholder="Rechercher...">
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="map" id="map"></div>
+    </div>
+
+    <footer>
+        <p>&copy; ʜᴀᴄᴋᴀᴛᴏɴ</p>
+    </footer>
+
+    <script>
+        var map = L.map('map').setView([48.8566, 2.3522], 12); // Coordonnées de Paris
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Chargez les coordonnées à partir du fichier JSON
+        fetch('coordinates.json')
+            .then(response => response.json())
+            .then(coordinates => {
+                coordinates.forEach(coord => {
+                    L.marker([coord.lat, coord.lon]).addTo(map)
+                        .bindPopup(coord.adresse);
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+</body>
+
+</html>
