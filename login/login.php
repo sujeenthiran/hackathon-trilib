@@ -21,14 +21,25 @@ $resultat = $connexion->query($sql);
 
 if ($resultat->num_rows > 0) {
     // Vous êtes connecté avec succès !
-    
+
+    // Récupérez le nom et le prénom de l'utilisateur depuis la base de données
+    $row = $resultat->fetch_assoc();
+    $nom_utilisateur = $row['nom']; // Remplacez 'nom' par le nom de la colonne dans la base de données
+    $prenom_utilisateur = $row['prenom']; // Remplacez 'prenom' par le nom de la colonne dans la base de données
+
+    // Démarrez la session
+    session_start();
+
+    // Stockez le nom et le prénom de l'utilisateur dans des variables de session
+    $_SESSION['nom_utilisateur'] = $nom_utilisateur;
+    $_SESSION['prenom_utilisateur'] = $prenom_utilisateur;
+
     // Redirigez l'utilisateur vers la page "main.php"
-    header("Location: ./main.php");
-    exit(); // Assurez-vous d'utiliser exit() pour arrêter l'exécution du script ici
+    header("Location: /hackathon/");
+    exit();
 } else {
     echo "Échec de la connexion. Veuillez vérifier vos informations de connexion.";
 }
-
 
 $connexion->close();
 ?>

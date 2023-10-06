@@ -1,4 +1,14 @@
 <!-- index.html -->
+<?php
+// main.php
+session_start();
+
+if (!isset($_SESSION['nom_utilisateur'])) {
+    // Rediriger l'utilisateur vers la page de connexion s'il n'est pas connecté
+    header("Location: /hackathon/login/login.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +26,11 @@
 
     <!-- Bouton pour prendre une photo avec la caméra -->
     <button id="capture-button">Prendre une Photo</button>
+    <button id="show-photos-button">Afficher les Photos</button>
+    <section id="photos-section">
+        <h2>Vos Photos</h2>
+       <?php require_once("gallery.php");  ?>
+    </section>
 
     <script>
         const cameraView = document.getElementById('camera-view');
@@ -68,6 +83,18 @@
         window.addEventListener('load', () => {
             startCamera();
         });
+        // JavaScript
+        document.addEventListener('DOMContentLoaded', function () {
+            const showPhotosButton = document.getElementById('show-photos-button');
+            
+            // Gestionnaire d'événements pour le bouton "Afficher les photos"
+            showPhotosButton.addEventListener('click', function () {
+                // Faites défiler vers la section contenant les photos
+                const photosSection = document.getElementById('photos-section');
+                photosSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
     </script>
 </body>
 </html>

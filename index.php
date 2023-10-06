@@ -1,3 +1,17 @@
+<?php
+// Démarrer la session
+session_start();
+
+if (isset($_SESSION['nom_utilisateur'])) {
+    // Récupérer le nom et prénom de l'utilisateur depuis la session
+    $nom_utilisateur = $_SESSION['nom_utilisateur'];
+    $prenom_utilisateur = $_SESSION['prenom_utilisateur'];
+} else {
+    // L'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
+    header("Location: /hackathon/login/login.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,11 +32,13 @@
 
 <body>
     <header>
-        
         <div class="top-bar">
             <img src="paris.png" alt="Paris">
             <button class="btn-event">Événements</button>
             <button class="btn-filter">Filtre</button>
+            <!-- Afficher le nom et prénom de l'utilisateur -->
+            <p>Bienvenue, <?php echo "$prenom_utilisateur $nom_utilisateur"; ?> !</p>
+            <a href="/hackathon/logout/logout.php">Déconnexion</a>
             <input type="text" class="search-bar" placeholder="Rechercher...">
         </div>
     </header>

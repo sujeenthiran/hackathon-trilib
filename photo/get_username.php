@@ -1,4 +1,14 @@
 <?php
+// main.php
+session_start();
+
+if (!isset($_SESSION['nom_utilisateur'])) {
+    // Rediriger l'utilisateur vers la page de connexion s'il n'est pas connecté
+    header("Location: /hackathon/login/login.html");
+    exit();
+}
+?>
+<?php
 // Informations de connexion à la base de données
 $serveur = "localhost";
 $nom_utilisateur = "root";
