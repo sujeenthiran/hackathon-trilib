@@ -60,7 +60,7 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) &&
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f2f2f2;
+            background-color: black;
         }
 
         .page {
@@ -111,38 +111,55 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) &&
             margin-bottom: 20px;
         }
 
-        .form {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 300px;
-        }
+        /* Styles pour le conteneur du formulaire */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alignez les éléments horizontalement au centre */
+    width: 100%;
+    max-width: 300px;
+}
 
-        label {
-            margin-top: 10px;
-            font-weight: bold;
-        }
+/* Styles pour les étiquettes (labels) */
+label {
+    margin-top: 10px;
+    font-weight: bold;
+    width: 100%; /* Forcez les étiquettes à occuper la largeur totale */
+}
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="submit"] {
-            padding: 10px;
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 5px;
-        }
+/* Styles pour les champs de saisie (input) */
+input[type="submit"]{
+    background-color: green;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: gray;
+    width: 100%; /* Forcez les champs de saisie à occuper la largeur totale */
+}
 
-        input[type="submit"] {
-            background-color: #ff00ff;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
 
         input[type="submit"]:hover {
             background-color: #ff0000;
+        }
+
+        /* Styles pour les messages d'erreur et de succès */
+        .message-erreur {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .message-succes {
+            color: green;
+            font-size: 14px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -187,6 +204,7 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) &&
                         <label for="password">Mot de passe</label>
                         <input type="password" id="password" name="password" required>
                         <input type="submit" id="submit" value="S'inscrire">
+                         <a href="/hackathon/login/login.php"type="submitr"> login </a>
                     </form>
                     <?php echo $messageErreur; ?>
                 <?php echo $messageSucces; ?>

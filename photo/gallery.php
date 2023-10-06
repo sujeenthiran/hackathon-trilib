@@ -1,6 +1,4 @@
 <?php
-
-
 // Vérifier si l'utilisateur est connecté (a une session active)
 if (isset($_SESSION['nom_utilisateur']) && isset($_SESSION['prenom_utilisateur'])) {
     // Récupérer le nom et le prénom de l'utilisateur depuis les variables de session
@@ -61,6 +59,7 @@ if ($result_user) {
         echo "<img src='/hackathon/photo/images/$nom_fichier' alt='Photo $i'>";
         echo "<p>Nom du fichier : $nom_fichier</p>";
         echo "</div>";
+        
     }
     echo "</div>";
 } else {

@@ -8,6 +8,8 @@ if (!isset($_SESSION['nom_utilisateur'])) {
     header("Location: /hackathon/login/login.html");
     exit();
 }
+$nom_utilisateur = $_SESSION['nom_utilisateur'];
+$prenom_utilisateur = $_SESSION['prenom_utilisateur'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,10 +19,22 @@ if (!isset($_SESSION['nom_utilisateur'])) {
     <title>Prendre une Photo</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <link rel="stylesheet" href="styles.css">
+    
 </head>
-<body>
-    <h1>Prendre une Photo</h1>
 
+<body>
+    
+    <header>
+    <div class="top-bar">
+            <a href="/hackathon/index.php"><img src="/hackathon/paris.png" alt="Paris"></a>
+            <a href="/hackathon/events/event.php"><button class="btn-event">Événements</button></a>
+            <a href="/hackathon/photo/photo.php"><button class="btn-filter">photo</button></a>
+            <!-- Afficher le nom et prénom de l'utilisateur -->
+            <p>Bienvenue, <?php echo "$prenom_utilisateur $nom_utilisateur"; ?> !</p>
+            <a href="/hackathon/logout/logout.php">Déconnexion</a>
+            <input type="text" class="search-bar" placeholder="Rechercher...">
+        </div>
+    </header><h1>Prendre une Photo</h1>
     <!-- Afficher la vue de la caméra (avant le clic sur "Prendre Photo") -->
     <video id="camera-view" autoplay></video>
 
@@ -98,3 +112,149 @@ if (!isset($_SESSION['nom_utilisateur'])) {
     </script>
 </body>
 </html>
+<style>
+    body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #206fdd, #444444);
+    color: #ffffff;
+}
+
+header, footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+header {
+    padding: 20px 0;
+    position: relative;
+}
+
+header h1 {
+    font-size: 2em;
+}
+
+header .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Changement de l'alignement */
+}
+
+.top-bar .btn-event, .top-bar .btn-filter, .top-bar .search-bar {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.top-bar .btn-event, .top-bar .btn-filter {
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.top-bar .search-bar {
+    background-color: #444;
+    color: #ffffff;
+    padding-left: 15px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 50px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom, #007bff, #0056b3);
+}
+
+.map {
+    flex: 1;
+    max-width: 600px;
+    position: relative;
+}
+
+.map img {
+    max-width: 100%;
+}
+
+.info, .fadeIn {
+    flex: 1;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s;
+}
+
+.info h2, .fadeIn h2 {
+    animation: bounce 2s infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+a {
+    transition: color 0.3s;
+    color: inherit;
+}
+
+a:hover {
+    color: #ff9900;
+}
+
+.btn {
+    background: radial-gradient(#ff9900, #ff4500);
+    border: none;
+    color: #ffffff;
+}
+
+.icon {
+    font-size: 24px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alignement sur le même niveau */
+}
+
+.btn-event, .btn-filter {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-bar {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+header img {
+    max-width: 100px;
+    height: auto;
+}
+</style>

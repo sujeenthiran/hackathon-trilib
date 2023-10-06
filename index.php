@@ -25,26 +25,20 @@ if (isset($_SESSION['nom_utilisateur'])) {
 
     <style>
         #map {
-            height: 500px;
+            padding: 20%;
+            height: 120%;
+            zoom:250%;
+            
         }
     </style>
 </head>
-
+<?php require_once('../hackathon/header.php'); ?>
 <body>
-    <header>
-        <div class="top-bar">
-            <img src="paris.png" alt="Paris">
-            <button class="btn-event">Événements</button>
-            <button class="btn-filter">Filtre</button>
-            <!-- Afficher le nom et prénom de l'utilisateur -->
-            <p>Bienvenue, <?php echo "$prenom_utilisateur $nom_utilisateur"; ?> !</p>
-            <a href="/hackathon/logout/logout.php">Déconnexion</a>
-            <input type="text" class="search-bar" placeholder="Rechercher...">
-        </div>
-    </header>
+    
 
     <div class="container">
         <div class="map" id="map"></div>
+       
     </div>
 
     <footer>
@@ -60,16 +54,30 @@ if (isset($_SESSION['nom_utilisateur'])) {
 
         // Chargez les coordonnées à partir du fichier JSON
         fetch('coordinates.json')
-            .then(response => response.json())
-            .then(coordinates => {
-                coordinates.forEach(coord => {
-                    L.marker([coord.lat, coord.lon]).addTo(map)
-                        .bindPopup(coord.adresse);
-                });
-            })
-            .catch(error => {
-                console.error(error);
+    .then(response => response.json())
+    .then(coordinates => {
+        coordinates.forEach(coord => {
+            var marker = L.marker([coord.lat, coord.lon]).addTo(map);
+
+            // Créez le contenu HTML de la popup avec le nom de l'utilisateur et l'image
+            var popupContent = `
+                <b>Adresse:</b> ${coord.adresse}<br/>
+                <b>Utilisateur:</b> ${coord.user}<br/>
+                <img src="${coord.image}" alt="Image de l'utilisateur" width="200"/>
+            `;
+
+            // Associez le contenu HTML à la popup du marqueur
+            marker.bindPopup(popupContent);
+
+            // Ajoutez un événement de clic pour ouvrir la popup
+            marker.on('click', function () {
+                marker.openPopup();
             });
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
     </script>
 </body>
 
