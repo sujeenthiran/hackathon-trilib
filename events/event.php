@@ -35,7 +35,7 @@ if (isset($_SESSION['nom_utilisateur'])) {
             <a href="/hackathon/events/event.php"><button class="btn-event">Événements</button></a>
             <a href="/hackathon/photo/photo.php"><button class="btn-filter">photo</button></a>
             <!-- Afficher le nom et prénom de l'utilisateur -->
-            <p>Bienvenue, <?php echo "$prenom_utilisateur $nom_utilisateur"; ?> !</p>
+            <p>Bienvenue, <?php echo htmlspecialchars("$prenom_utilisateur $nom_utilisateur"); ?> !</p>
             <a href="/hackathon/logout/logout.php">Déconnexion</a>
             <input type="text" class="search-bar" placeholder="Rechercher...">
         </div>

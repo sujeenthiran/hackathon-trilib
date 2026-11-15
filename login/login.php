@@ -12,23 +12,24 @@ if ($connexion->connect_error) {
 }
 
 // Récupération des données du formulaire
-$email = $_POST['email'];
-$password = $_POST['password'];
+$email = $_POST['email'] ?? '';
+$password = $_POST['password'] ?? '';
 
-// Vérification de l'authentification
-$sql = "SELECT * FROM users WHERE email='$email' AND mot_de_passe='$password'";
-$resultat = $connexion->query($sql);
+// Vérification de l'authentification : requête préparée (anti-injection SQL)
+// puis vérification du mot de passe haché avec password_verify()
+$stmt = $connexion->prepare("SELECT nom, prenom, mot_de_passe FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$row = $stmt->get_result()->fetch_assoc();
 
-if ($resultat->num_rows > 0) {
+if ($row && password_verify($password, $row['mot_de_passe'])) {
     // Vous êtes connecté avec succès !
-
-    // Récupérez le nom et le prénom de l'utilisateur depuis la base de données
-    $row = $resultat->fetch_assoc();
     $nom_utilisateur = $row['nom']; // Remplacez 'nom' par le nom de la colonne dans la base de données
     $prenom_utilisateur = $row['prenom']; // Remplacez 'prenom' par le nom de la colonne dans la base de données
 
-    // Démarrez la session
+    // Démarrez la session et changez son identifiant (anti fixation de session)
     session_start();
+    session_regenerate_id(true);
 
     // Stockez le nom et le prénom de l'utilisateur dans des variables de session
     $_SESSION['nom_utilisateur'] = $nom_utilisateur;

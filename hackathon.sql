@@ -39,11 +39,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `nom`, `lieu`, `date`) VALUES
-(27, 'Plage ', 'Plage De Mer', '2023-10-20'),
-(28, 'sue1', 'gg', '2023-10-06'),
-(29, 'sue', 'gg', '2023-10-06'),
-(30, 'sue', 'gg', '2023-10-06'),
-(31, 'sue', 'gg', '2023-10-06');
+(1, 'Nettoyage de plage', 'Plage de Mer', '2023-10-20'),
+(2, 'Collecte de déchets', 'Parc de la Villette', '2023-10-21');
 
 -- --------------------------------------------------------
 
@@ -62,9 +59,7 @@ CREATE TABLE `photo_count` (
 --
 
 INSERT INTO `photo_count` (`id`, `user_id`, `photo_count`) VALUES
-(1, 1, 27),
-(2, 14, 3),
-(3, 6, 3);
+(1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -84,15 +79,9 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
+-- Compte de démonstration : demo@example.com / demo1234 (mot de passe haché avec bcrypt)
 INSERT INTO `users` (`id`, `nom`, `prenom`, `email`, `mot_de_passe`) VALUES
-(1, 'Doe', 'John', 'john@example.com', 'monmotdepasse'),
-(6, 'Demo', 'Utilisateur', 'contact@example.com', 'kk'),
-(8, '', '', '', ''),
-(9, 'Demo', 'Utilisateur', 'contact@example.com', 'll'),
-(10, 'Demo', 'Utilisateur', 'contact@example.com', 'gf'),
-(11, 'Demo', 'Utilisateur', 'contact@example.com', 'gg'),
-(12, 'Demo', 'Utilisateur', 'gg@gg.com', 'gg'),
-(13, 'Test', 'Exemple', 'contact@example.com', 'sujee');
+(1, 'Demo', 'Utilisateur', 'demo@example.com', '$2y$10$M50tyIw1eMSRKA04lNsz8uolTwV/u9tF14zka9Trl8dR83pEoXTgi');
 
 --
 -- Index pour les tables déchargées

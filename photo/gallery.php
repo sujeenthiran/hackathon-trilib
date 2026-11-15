@@ -50,7 +50,7 @@ if ($result_user) {
     }
 
     // Afficher les images pour l'utilisateur
-    echo "<h1>Galerie de Photos pour $nom_utilisateur $prenom_utilisateur (photo_count = $photo_count)</h1>";
+    echo "<h1>Galerie de Photos pour " . htmlspecialchars("$nom_utilisateur $prenom_utilisateur") . " (photo_count = " . (int)$photo_count . ")</h1>";
 
     echo "<div class='photo-gallery'>";
     for ($i = 1; $i <= $photo_count; $i++) {

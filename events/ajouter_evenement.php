@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['nom_utilisateur'])) {
+    header("Location: /hackathon/login/login.html");
+    exit();
+}
+
 $servername = "localhost";
 $username = "root"; // Remplacez par votre nom d'utilisateur MySQL
 $password = ""; // Remplacez par votre mot de passe MySQL
@@ -20,13 +26,14 @@ if(isset($_POST['nom']) && isset($_POST['lieu']) && isset($_POST['date'])) {
     $date = $_POST['date'];
 
     // Préparez et exécutez la requête SQL pour ajouter l'événement
-    $sql = "INSERT INTO events (nom, lieu, date) VALUES ('$nom', '$lieu', '$date')";
+    $stmt = $conn->prepare("INSERT INTO events (nom, lieu, date) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $nom, $lieu, $date);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         header("Location: index.php"); // Redirige vers la page principale après l'ajout
         exit();
     } else {
-        echo "Erreur : " . $sql . "<br>" . $conn->error;
+        echo "Erreur lors de l'ajout de l'événement.";
     }
 } else {
     echo "Veuillez remplir tous les champs du formulaire.";

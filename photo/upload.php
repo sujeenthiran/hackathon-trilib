@@ -63,6 +63,7 @@ if ($stmtUserId->rowCount() > 0) {
     // Utilisateur non trouvé dans la base de données
     http_response_code(404);
     echo 'Utilisateur non trouvé.';
+    exit;
 }
 
     // Récupérer le nombre de photos prises par cet utilisateur depuis la table photo_count
@@ -88,11 +89,18 @@ if ($stmtUserId->rowCount() > 0) {
     $stmt->bindParam(':photo_count', $photoCount);
     $stmt->execute();
 
-    // Récupérer l'extension du fichier
-    $extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+    // Sécurité : n'accepter que de vraies images (contenu vérifié) et une liste blanche d'extensions
+    $extension = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
+    if (!in_array($extension, ['jpg', 'jpeg', 'png', 'webp'], true) || getimagesize($_FILES['photo']['tmp_name']) === false) {
+        http_response_code(400);
+        echo 'Format de fichier non autorisé.';
+        exit;
+    }
 
-   // Construire le nom du fichier (prenom_nom_numerodephoto.extension)
-    $photoName = $prenom_utilisateur . '_' . $nom_utilisateur . '_' . $photoCount . '.' . $extension;
+    // Construire le nom du fichier (prenom_nom_numerodephoto.extension)
+    // en retirant les caractères dangereux (ex. « ../ ») venant des noms
+    $nettoyer = fn($s) => preg_replace('/[^A-Za-z0-9_-]/', '', $s);
+    $photoName = $nettoyer($prenom_utilisateur) . '_' . $nettoyer($nom_utilisateur) . '_' . (int)$photoCount . '.' . $extension;
 
 
     // Définir le chemin complet de destination

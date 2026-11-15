@@ -15,7 +15,8 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        echo "<li><strong>" . $row["nom"]. "</strong> - Lieu: " . $row["lieu"]. ", Date: " . $row["date"]. "</li>";
+        // htmlspecialchars : empêche l'injection de code HTML/JS (XSS)
+        echo "<li><strong>" . htmlspecialchars($row["nom"]) . "</strong> - Lieu: " . htmlspecialchars($row["lieu"]) . ", Date: " . htmlspecialchars($row["date"]) . "</li>";
     }
 } else {
     echo "Aucun événement trouvé.";

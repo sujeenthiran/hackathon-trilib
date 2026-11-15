@@ -24,22 +24,28 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) &&
     $password = $_POST['password'];
 
     // Vérification de l'unicité de l'email (pour éviter les doublons)
-    $verification_sql = "SELECT * FROM users WHERE email='$email'";
-    $verification_resultat = $connexion->query($verification_sql);
+    // Requête préparée (anti-injection SQL)
+    $verification = $connexion->prepare("SELECT id FROM users WHERE email = ?");
+    $verification->bind_param("s", $email);
+    $verification->execute();
+    $verification->store_result();
 
-    if ($verification_resultat->num_rows > 0) {
+    if ($verification->num_rows > 0) {
         // Message d'erreur si l'e-mail existe déjà
         $messageErreur = '<p style="color: red;">L\'email est déjà utilisé. Veuillez choisir un autre email.</p>';
     } else {
         // Insertion des données dans la base de données
-        $insertion_sql = "INSERT INTO users (nom, prenom, email, mot_de_passe) VALUES ('$nom', '$prenom', '$email', '$password')";
+        // Le mot de passe est haché (bcrypt) avant d'être stocké
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $insertion = $connexion->prepare("INSERT INTO users (nom, prenom, email, mot_de_passe) VALUES (?, ?, ?, ?)");
+        $insertion->bind_param("ssss", $nom, $prenom, $email, $hash);
 
-        if ($connexion->query($insertion_sql) === TRUE) {
+        if ($insertion->execute()) {
             // Message de succès en cas d'inscription réussie
             $messageSucces = '<p style="color: green;">Inscription réussie ! Vous pouvez maintenant vous connecter.</p>';
         } else {
             // Message d'erreur en cas d'échec de l'insertion
-            $messageErreur = '<p style="color: red;">Erreur lors de l\'inscription : ' . $connexion->error . '</p>';
+            $messageErreur = '<p style="color: red;">Erreur lors de l\'inscription. Veuillez réessayer.</p>';
         }
     }
 }
