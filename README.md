@@ -1,4 +1,4 @@
-# ♻️ Hackathon – carte des stations Trilib' à Paris
+<p align="center"><img src="docs/banner.svg" alt="♻️ Hackathon – carte des stations Trilib' à Paris" width="100%"></p>
 
 Application web réalisée en **3 jours lors d'un hackathon (octobre 2023)**. Elle aide les habitants à trouver les stations de tri **Trilib'** à Paris, à participer à des événements de nettoyage et à partager des photos.
 

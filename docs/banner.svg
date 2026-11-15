@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#07111f"/><stop offset="1" stop-color="#0f2138"/></linearGradient>
+ <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#1c3352" opacity=".55"/></pattern>
+ <radialGradient id="glow" cx=".85" cy=".5" r=".4"><stop offset="0" stop-color="#a78bfa" stop-opacity=".22"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="280" rx="18" fill="url(#bg)"/><rect width="1200" height="280" rx="18" fill="url(#grid)"/><rect width="1200" height="280" rx="18" fill="url(#glow)"/>
+<rect x="0" y="40" width="6" height="200" rx="3" fill="#a78bfa"/>
+<text x="64" y="72" font-family="'JetBrains Mono',Consolas,'Courier New',monospace" font-size="15" letter-spacing="2" fill="#a78bfa">HACKATHON · 3 JOURS</text>
+<text x="62" y="132" font-family="'Segoe UI',Inter,Helvetica,Arial,sans-serif" font-size="50" font-weight="700" fill="#f1f5f9">Hackathon Trilib&#x27;</text>
+<text x="64" y="170" font-family="'Segoe UI',Inter,Helvetica,Arial,sans-serif" font-size="21" fill="#94a3b8">Carte interactive des stations de tri de Paris</text>
+<rect x="64" y="196" width="41" height="32" rx="16" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-opacity=".55"/><text x="85" y="217" text-anchor="middle" font-family="'JetBrains Mono',Consolas,'Courier New',monospace" font-size="14.5" fill="#a78bfa">PHP</text><rect x="115" y="196" width="58" height="32" rx="16" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-opacity=".55"/><text x="144" y="217" text-anchor="middle" font-family="'JetBrains Mono',Consolas,'Courier New',monospace" font-size="14.5" fill="#a78bfa">MySQL</text><rect x="183" y="196" width="75" height="32" rx="16" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-opacity=".55"/><text x="221" y="217" text-anchor="middle" font-family="'JetBrains Mono',Consolas,'Courier New',monospace" font-size="14.5" fill="#a78bfa">Leaflet</text><rect x="268" y="196" width="66" height="32" rx="16" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-opacity=".55"/><text x="301" y="217" text-anchor="middle" font-family="'JetBrains Mono',Consolas,'Courier New',monospace" font-size="14.5" fill="#a78bfa">Python</text>
+<g transform="translate(1030 140)"><rect x="-80" y="-62" width="160" height="124" rx="12" fill="#a78bfa" fill-opacity=".10" stroke="#a78bfa" stroke-width="2.5"/><circle cx="-60" cy="-44" r="4" fill="#a78bfa"/><circle cx="-46" cy="-44" r="4" fill="#a78bfa" opacity=".6"/><circle cx="-32" cy="-44" r="4" fill="#a78bfa" opacity=".35"/><path d="M-30 -6 L-52 14 L-30 34 M30 -6 L52 14 L30 34 M10 -12 L-10 40" fill="none" stroke="#a78bfa" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>
