@@ -35,7 +35,7 @@ En reprenant ce projet avec mon regard d'étudiant en cybersécurité, j'ai corr
 2. Copier le dossier dans le répertoire web sous le nom `hackathon`
 3. Importer `hackathon.sql` dans MySQL
 4. (Optionnel) Mettre à jour les stations : `python main.py`
-5. Ouvrir `http://localhost/hackathon/` et se connecter avec le compte de démo `demo@example.com` / `demo1234`
+5. Ouvrir `http://localhost/hackathon-trilib/` et se connecter avec le compte de démo `demo@example.com` / `demo1234`
 
 ## 🛠️ Stack
 
